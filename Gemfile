@@ -4,6 +4,7 @@ gem 'rails', '3.2.12'
 gem 'mysql2'
 gem 'haml'
 gem 'jquery-rails'
+gem 'devise'
 
 group :assets do
   gem 'sass-rails'

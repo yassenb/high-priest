@@ -1,0 +1,13 @@
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  %div
+    = f.label :email, "email"
+    %br
+    = f.text_field :email
+
+  %div
+    = f.label :password, "password"
+    %br
+    = f.password_field :password
+
+  %div
+    = f.submit "Sign in"
