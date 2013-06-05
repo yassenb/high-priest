@@ -1,0 +1,1 @@
+seed with a single admin when deploying
