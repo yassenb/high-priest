@@ -16,6 +16,9 @@
       = link_to "Sign in", new_user_session_path
       = link_to "Sign up", new_user_registration_path
 
+    = link_to "Games", games_path
+    = link_to "New Game", new_game_path
+
     - if flash[:notice]
       #notice= flash[:notice]
     - if flash[:error] || flash[:alert]

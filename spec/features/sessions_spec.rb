@@ -15,7 +15,7 @@ feature "signing in and out" do
 
     click_on "Sign out"
     page.should have_link("Sign in")
-    current_path.should == root_path
+    current_path.should == new_user_session_path
   end
 
   scenario "error upon wrong e-mail or password" do

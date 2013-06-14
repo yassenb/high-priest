@@ -1,7 +1,9 @@
 HighPriest::Application.routes.draw do
   devise_for :users
 
-  root to: 'application#removeme'
+  root to: 'games#index'
+
+  resources :games, only: [:index, :new, :create, :show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
