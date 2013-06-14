@@ -1,1 +1,5 @@
 = @game.name
+%ul#players
+  - @game.players.map { |player| player.user.username }.each do |username|
+    %li= username
+= button_to "leave", leave_game_path(@game)

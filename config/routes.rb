@@ -3,7 +3,12 @@ HighPriest::Application.routes.draw do
 
   root to: 'games#index'
 
-  resources :games, only: [:index, :new, :create, :show]
+  resources :games, only: [:index, :new, :create, :show] do
+    member do
+      post 'join'
+      post 'leave'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  has_many :players, dependent: :destroy
+
   attr_accessible :name
 
   validates_presence_of :name, :created_at
@@ -7,5 +9,9 @@ class Game < ActiveRecord::Base
 
   before_validation do |game|
     game.created_at ||= Time.now
+  end
+
+  def add_player(user)
+    self.players << Player.new { |p| p.user = user }
   end
 end

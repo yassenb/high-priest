@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :players, dependent: :destroy
+
   devise :database_authenticatable, :registerable, :validatable
 
   attr_accessible :username, :email, :password, :password_confirmation
