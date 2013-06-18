@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :username, :email, :password, :password_confirmation
 
-  validates_presence_of :username, :email
+  validates_presence_of :username, :email, :token
   validates_uniqueness_of :username, :email
+
+  before_validation do |user|
+    user.token ||= SecureRandom.base64(20)
+  end
 end

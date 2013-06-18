@@ -1,5 +1,19 @@
+= javascript_include_tag "/faye/client.js"
+= javascript_include_tag "games/show"
+
 = @game.name
 %ul#players
   - @game.players.map { |player| player.user.username }.each do |username|
     %li= username
-= button_to "leave", leave_game_path(@game)
+
+#chat
+  %textarea#log
+  %input{type: "text", id: "input"}
+  %input{type: "button", value: "send", id: "sendButton"}
+
+#leaveButton= button_to "leave", leave_game_path(@game)
+
+.hidden
+  #game_id= @game.id
+  #user_id= current_user.id
+  #token= current_user.token
