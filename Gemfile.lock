@@ -124,9 +124,9 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     multi_json (1.7.6)
-    mysql2 (0.3.11)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
+    pg (0.15.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -227,7 +227,7 @@ DEPENDENCIES
   guard-spork
   haml
   jquery-rails
-  mysql2
+  pg
   rails (= 3.2.12)
   rspec-rails
   sass-rails
