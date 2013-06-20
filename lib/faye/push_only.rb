@@ -1,3 +1,5 @@
+require "realtime/request_handler"
+
 module FayeExtensions
   class PushOnly
     SERVER_TOKEN = SecureRandom.base64(20)
@@ -38,13 +40,9 @@ module FayeExtensions
       game_id = match[1]
       game = Game.find(game_id)
       user = message["ext"] && User.find_by_token(message["ext"]["token"])
-      return unless game && user && game.players.find_by_user_id(user.id)
+      return unless game && user && game.users.include?(user)
 
-      # TODO move from here below to a separate function
-      game.players.map { |player| player.user.id }.each do |user_id|
-        @server_client.publish "/game/#{game_id}/#{user_id}",
-          {type: "chat", data: {text: message["data"]["data"]["text"], user: user.username}}
-      end
+      RealTime::handle_request @server_client, game, user, message["data"]
     end
 
     def crypto_equal(s1, s2)

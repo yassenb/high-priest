@@ -14,4 +14,8 @@ class Game < ActiveRecord::Base
   def add_player(user)
     self.players << Player.new { |p| p.user = user }
   end
+
+  def users
+    self.players.map { |player| player.user }
+  end
 end
