@@ -59,6 +59,9 @@ module HighPriest
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Prevent connecting to the DB when precompiling. Mostly because of Heroku
+    config.assets.initialize_on_precompile = false
+
     config.middleware.insert_before "Rack::Lock", "PushOnlyFaye",
       mount: "/faye",
       timeout: 25
