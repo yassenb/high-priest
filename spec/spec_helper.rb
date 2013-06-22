@@ -48,4 +48,5 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  RealTime::load_controllers
 end

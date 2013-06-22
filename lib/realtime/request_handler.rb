@@ -1,9 +1,9 @@
 require "realtime/controller"
 
-CONTROLLERS_GLOB = File.dirname(__FILE__) + "/../../app/realtime/**/*.rb"
-Dir[CONTROLLERS_GLOB].each { |file| require file }
-
 module RealTime
+  CONTROLLERS_GLOB = File.dirname(__FILE__) + "/../../app/realtime/**/*.rb"
+  Dir[CONTROLLERS_GLOB].each { |file| require file }
+
 module_function
 
   def handle_request(server_client, game, sender, data)
@@ -23,6 +23,4 @@ module_function
   def load_controllers
     Dir[CONTROLLERS_GLOB].each { |file| load file }
   end
-
-  private_class_method :load_controllers
 end

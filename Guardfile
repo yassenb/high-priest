@@ -21,4 +21,5 @@ guard "rspec", cli: "--drb", all_on_start: false do
   watch(%r{^app/models/(.+)\.rb$})                    { |m| "spec/models/#{m[1]}_spec.rb" }
   watch(%r{^app/views/(.+)/.*\.haml$})                { |m| "spec/features/#{m[1]}_spec.rb" }
 #  watch("config/routes.rb")                           { "spec/routing" }
+  watch(%r{^app/realtime/(.+)\.rb$})                  { |m| "spec/realtime/#{m[1]}_spec.rb" }
 end
