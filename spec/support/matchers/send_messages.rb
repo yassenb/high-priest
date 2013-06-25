@@ -1,6 +1,6 @@
 RSpec::Matchers.define :send_messages do |method, messages|
   match do |controller|
-    controller.__send__(method)
+    controller.public_send(method)
     @actual = controller.sent_messages.to_set
     @expected = messages.to_set
     @actual.eql? @expected

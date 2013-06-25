@@ -17,7 +17,7 @@ module_function
     controller_class = Object.const_get controller_class_name
     method ||= "index"
 
-    controller_class.new(server_client, game, sender, data["data"]).__send__ method
+    controller_class.new(server_client, game, sender, data["data"]).public_send method
   end
 
   def load_controllers
