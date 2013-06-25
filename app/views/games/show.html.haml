@@ -1,5 +1,8 @@
 = javascript_include_tag "/faye/client.js"
 = javascript_include_tag "games/show"
+- if Rails.env.development?
+  = javascript_include_tag "games/debug_console"
+  = stylesheet_link_tag("debug_console", media: "all")
 
 = @game.name
 %ul#players
@@ -12,6 +15,12 @@
   %input{type: "button", value: "send", id: "sendButton"}
 
 #leaveButton= button_to "leave", leave_game_path(@game)
+
+- if Rails.env.development?
+  %textarea#debugLog{readonly: "true"}
+  %br
+  %input#fakeBackendInput{type: "text"}
+  %input#fakeBackendButton{type: "button", value: "receive message"}
 
 .hidden
   #game_id= @game.id
