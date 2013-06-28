@@ -1,4 +1,6 @@
 require "heroes/hero"
+require "allies/ally"
+require "spells/spell"
 require "support/random_sample"
 
 class Player < ActiveRecord::Base
@@ -9,6 +11,8 @@ class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
   has_many :hero_picks, dependent: :destroy
+  has_many :allies, dependent: :destroy
+  has_many :spells, dependent: :destroy
 
   validates_presence_of :game_id, :user_id
   validates_presence_of :hero_id, unless: Proc.new { |player| player.phase == "joined" }
@@ -36,30 +40,58 @@ class Player < ActiveRecord::Base
 
   def pick_allies
     assert_player_phase "picked_hero"
-    # TODO
+    allies = Support.random_sample(Allies.all, Allies::NSTARTING)
+    allies.map do |ally|
+      Ally.create({ player: self, ally: ally }, without_protection: true)
+    end
+    allies
   end
 
   def pick_spells
     assert_player_phase "picked_hero"
-    # TODO
+    spells = Support.random_sample(Spells.all, Spells::NSTARTING)
+    spells.map do |spell|
+      Spell.create({ player: self, spell: spell }, without_protection: true)
+    end
+    spells
   end
 
-  def swap_ally
+  def swap_ally(id)
     assert_player_phase "picked_hero"
     raise "Can't swap ally twice" if swapped_ally?
-    # TODO
+    new_ally = nil
+
+    if id
+      ally = allies.find_by_ally_id(id)
+      raise "Ally not present" unless ally
+      new_ally = Support.random_sample(Allies.all)
+      ally.update_attribute(:ally, new_ally)
+    end
+
     self.swapped_ally = true
     play_if_swapping_done
+
     save!
+    new_ally
   end
 
-  def swap_spell
+  def swap_spell(id)
     assert_player_phase "picked_hero"
     raise "Can't swap spell twice" if swapped_spell?
-    # TODO
+    new_spell = nil
+
+    if id
+      spell = spells.find_by_spell_id(id)
+      raise "Spell not present" unless spell
+      new_spell = Support.random_sample(Spells.all)
+      spell.update_attribute(:spell, new_spell)
+    end
+
     self.swapped_spell = true
     play_if_swapping_done
+
     save!
+    new_spell
   end
 
   def swapping_done?

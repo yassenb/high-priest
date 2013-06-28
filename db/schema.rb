@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130626192655) do
+ActiveRecord::Schema.define(:version => 20130628192917) do
+
+  create_table "allies", :force => true do |t|
+    t.integer "player_id", :null => false
+    t.integer "ally_id",   :null => false
+  end
 
   create_table "games", :force => true do |t|
     t.string   "name",       :null => false
@@ -30,6 +35,11 @@ ActiveRecord::Schema.define(:version => 20130626192655) do
     t.boolean "swapped_ally",  :default => false,    :null => false
     t.boolean "swapped_spell", :default => false,    :null => false
     t.integer "hero_id"
+  end
+
+  create_table "spells", :force => true do |t|
+    t.integer "player_id", :null => false
+    t.integer "spell_id",  :null => false
   end
 
   create_table "users", :force => true do |t|
