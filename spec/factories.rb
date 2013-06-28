@@ -1,3 +1,5 @@
+require "heroes/hero"
+
 FactoryGirl.define do
   factory :user do
     email { "#{username.split.join(".").downcase}@gmail.com" }
@@ -29,5 +31,18 @@ FactoryGirl.define do
   factory :player do
     game
     user
+
+    factory :player_with_hero_picks do
+      after(:create) do |player, evaluator|
+        Heroes.all.take(HeroPick::NPICKS).map do |hero|
+          FactoryGirl.create(:hero_pick, player: player, hero: hero)
+        end
+      end
+    end
+  end
+
+  factory :hero_pick do
+    player
+    hero Heroes.all.first
   end
 end

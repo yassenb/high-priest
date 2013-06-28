@@ -1,5 +1,9 @@
+require 'realtime/controller_helper'
+
 module RealTime
   class Controller
+    include ControllerHelper
+
     def initialize(server_client, game, sender, data)
       @server_client = server_client
       @game = game
